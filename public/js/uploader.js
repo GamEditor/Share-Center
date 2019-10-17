@@ -2,6 +2,8 @@ function uploadToServer(form, uploadProgressDisplayerId)
 {
     let formData = new FormData(form);
 
+    console.log(formData);
+
     let xhr = new XMLHttpRequest();
     
     xhr.open(form.method, form.action, true);
