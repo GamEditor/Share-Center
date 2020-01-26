@@ -5,4 +5,4 @@ also you can use this simple file server for sharing files on a local network wi
 
 # Project setup
 1- <b>npm install</b> for installing requied packages.<br>
-2- run one of <b>setup project</b> files due to your operating system.
+2- run one of <b>setup project</b> file due to your operating system for creating folders of file storage.
