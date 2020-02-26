@@ -7,7 +7,6 @@ const port = 8000;
 const responsedelay = 50;   // miliseconds
 const filespath = `./files`;
 
-
 // static folders
 app.use(express.static('public'));
 app.use(express.static(filespath));
@@ -28,7 +27,7 @@ var uploadStorage = multer.diskStorage(
     },
     filename: function (req, file, cb)
     {
-        cb(null, file.originalname);
+        cb(null, file.originalname);    // file name must be verified before upload and if the file name is repeatitive then rename it
     }
 });
 
@@ -44,34 +43,47 @@ app.post('/', upload.single('file'), function(req, res)
 app.get('/files-list', function(req, res)
 {
     let response = [];
-    let contents = '';
 
     fs.readdir(filespath, function(err, files)
     {
         if(err)
         {
             console.log(err);
-            res.send(contents).status(200); // or 404
+            res.send('').status(200);
         }
         else if(files.length > 0)
         {
             files.forEach(function(value, index, array)
             {
-                console.log(index);
                 fs.stat(`${filespath}/${value}` , function(err, stats)
                 {
-                    let filesize = ConvertSize(stats.size);
-                    response.push({name: value, size: filesize, uploadDate: stats.birthtime});
+                    let filesize;
+                    try { filesize = ConvertSize(stats.size); }
+                    catch(err) { filesize = 0; }
                     
-                    if(index == (array.length - 1)) { setTimeout(function() {res.send(JSON.stringify(response)).status(200);}, responsedelay); }
+                    response.push(
+                    {
+                        name: value,
+                        filetype: stats.isFile() ? 'file' : 'folder',
+                        size: filesize,
+                        uploadDate: stats.birthtime // upload date is false and needs to fix
+                    });
+                    
+                    if(index == (array.length - 1))
+                        setTimeout(function() {res.send(JSON.stringify(response)).status(200);}, responsedelay);
                 });
             });
         }
         else
         {
-            setTimeout(function() {res.send(contents).status(200);}, responsedelay);
+            setTimeout(function() {res.send('').status(200);}, responsedelay);
         }
     });
+});
+
+app.delete('/filedir/', function(req, res)
+{
+    console.log(req.query);
 });
 
 /**

@@ -1,19 +1,70 @@
+* {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 body {
-    margin: 1%;
     background-color: rgb(42, 52, 61);
     font-family: Arial;
 }
 
-div.progressBar {
-    padding: 1%;
-    border: black;
+#delete_blocker_panel {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 196, 48, 0.5);
+    z-index: 100;
+}
+
+#delete_blocker_panel img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+span.path:hover {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(255, 195, 48);
+}
+
+div.progressBar-container {
+    position: sticky;
+    top: 1%;
+    height: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: inherit;
+    border: 1px solid rgb(255, 195, 48);
+}
+
+#progress-percentage {
+    position: absolute;
+    margin: 0;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    line-height: 0;
+    z-index: 1;
+    text-shadow: 1px 1px rgb(42, 52, 61);
 }
 
 div#progressBar {
+    position: absolute;
+    top: 0;
     margin: 0;
-    background-color: rgb(0, 255, 170);
-    height: 10px;
-    width: 0%;  /* for start */
+    background-color: rgb(255, 195, 48);
+    height: 100%;
+    width: 0%;
+    /* for start */
 }
 
 div#fileuploader {
@@ -22,42 +73,46 @@ div#fileuploader {
     background-color: rgb(69, 78, 87);
 }
 
-table.fileproperties {
-    width: 100%;
-    background-color: #e4e4e4;
-    border-collapse: collapse;
-}
-
-table.fileproperties th, table.fileproperties td {
-    padding: 8px;
-}
-
-table.fileproperties tr:nth-child(even) {
-    background-color: #a0a0a0;
-}
-
-table.fileproperties tr:nth-child(odd) {
-    background-color: #868686;
-}
-
-table.fileproperties tr:hover {
-    background-color: rgba(170, 239, 248, 0.5);
-}
-
-table.fileproperties th {
-    padding: 8px;
-    text-align: left;
-    background-color: rgb(69, 78, 87);
+div.directoryDisplayer {
     color: white;
+    border-bottom: 1px solid rgb(255, 195, 48);
 }
 
-table.fileproperties td a {
-    text-decoration: none;
+div.header-buttons {
+    width: 100%;
+    height: 32px;
 }
 
-table.fileproperties td a:hover, table.fileproperties td a:link, table.fileproperties td a:visited, table.fileproperties td a:active {
-    text-decoration: none;
-    color: black;
+div.header-buttons * {
+    float: right;
+    cursor: pointer;
+}
+
+div.file {
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    color: white;
+    text-align: justify;
+    vertical-align: middle;
+}
+
+div.file span.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+div.file img {
+    vertical-align: middle;
+}
+
+div.file:hover {
+    background-color: rgba(173, 216, 230, 0.300);
+}
+
+.item-button {
+    cursor: pointer;
 }
 
 #loadinggif {

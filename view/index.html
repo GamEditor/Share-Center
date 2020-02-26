@@ -1,36 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>File Server</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Mohammad Fathi">
+
+    <title>File Server</title>
     <link rel="shortcut icon" type="image/png" href="/img/fav-icon.ico" />
 </head>
+
 <body>
     <!-- loading scripts and styles -->
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.css" />
+    <script src="/js/deletefile.js"></script>
     <script src="/js/getfilelist.js"></script>
     <script src="/js/uploader.js"></script>
 
+    <!-- <div id="delete_blocker_panel">
+        <img src="/img/remove.gif">
+    </div> -->
+
     <div id="fileuploader">
-        <p><b>Send File</b></p>
+        <p><b>Upload files</b></p>
         <form id="form_fileUpload" method="POST" action="/?type=file" enctype="multipart/form-data">
-            <input type="file" name="file" required>
-            <input type="button" onclick="uploadToServer(document.getElementById('form_fileUpload'), document.getElementById('progressBar'))" value="Upload">
+            <input type="file" name="file"> <!-- required -->
+            <input type="button" name="uploadbutton" onclick="uploadToServer(
+                document.getElementById('form_fileUpload'),
+                document.getElementById('progressBar'),
+                document.getElementById('progress-percentage'),
+                'fileholder',
+                'loadinggif')" value="Upload">
         </form>
     </div>
 
-    <div class="progressBar">
+    <div class="progressBar-container">
+        <p id="progress-percentage">0%</p>
         <div id="progressBar"></div>
     </div>
 
-    <div><img id="loadinggif" src="/img/200.gif" alt="Loading Files..."></div>
+    <div><img id="loadinggif" src="/img/loading.gif" alt="Loading Files..."></div>
     
-    <div class="fileholder">
-        <table class="fileproperties" id="fileholder"></table>
+    <div class="header-buttons">
+        <div  onclick="//createnewfolder()" title="New Folder">
+            <img src="/img/new-folder.png">
+        </div>
+        <div onclick="getListOfFiles('fileholder', 'loadinggif')" title="Refresh">
+            <img src="/img/refresh-icon.png">
+        </div>
     </div>
-    
+
+    <div class="directoryDisplayer">► <span class="path">root</span> ► <span class="path">Musics</span></div>
+
+    <div id="fileholder">
+        <!-- files will be listed here -->
+    </div>
     <script>getListOfFiles('fileholder', 'loadinggif')</script>
 </body>
+
 </html>
