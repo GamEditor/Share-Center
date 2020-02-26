@@ -1,1 +1,1 @@
-if not exist "files" mkdir files-path
+if not exist "files" mkdir files
