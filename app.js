@@ -39,10 +39,15 @@ app.post('/', upload.single('file'), function(req, res)
 // all type of files except images will explored here
 app.get('/files-list', function(req, res)
 {
+    let folder = filespath;
     let response = [];
 
-    fs.readdir(filespath, function(err, files)
+    if(req.query.path)
+        folder = req.query.path;
+
+    fs.readdir(folder, function(err, files)
     {
+        console.log(files);
         if(err)
         {
             console.log(err);
@@ -52,7 +57,7 @@ app.get('/files-list', function(req, res)
         {
             files.forEach(function(value, index, array)
             {
-                fs.stat(`${filespath}/${value}` , function(err, stats)
+                fs.stat(`${folder}/${value}` , function(err, stats)
                 {
                     let filesize;
                     try { filesize = ConvertSize(stats.size); }
@@ -61,8 +66,9 @@ app.get('/files-list', function(req, res)
                     response.push(
                     {
                         name: value,
-                        filetype: stats.isFile() ? 'file' : 'folder',
+                        path: folder,
                         size: filesize,
+                        filetype: stats.isFile() ? 'file' : 'folder',
                         uploadDate: stats.birthtime // upload date is false and needs to fix
                     });
                     
