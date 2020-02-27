@@ -8,3 +8,5 @@ then
 		echo "./files created"
     fi
 fi
+
+npm install --save
