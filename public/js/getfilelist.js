@@ -19,6 +19,13 @@ function getListOfFiles(filestableid, loadinggifid)
         
         if(this.readyState == 4 && this.status == 200)
         {
+            // checking empty response
+            if(!this.responseText)
+            {
+                loadinggif.style.display = "none";
+                return;
+            }
+
             // parsing server response
             const response = JSON.parse(this.responseText);
             let files = '';

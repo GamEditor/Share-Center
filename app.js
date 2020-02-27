@@ -76,7 +76,8 @@ app.get('/files-list', function(req, res)
         }
         else
         {
-            setTimeout(function() {res.send('').status(200);}, responsedelay);
+            // empty response doesn't need delay
+            res.send('').status(200);
         }
     });
 });
