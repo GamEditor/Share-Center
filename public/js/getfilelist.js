@@ -36,7 +36,7 @@ function getListOfFiles(filestableid, loadinggifid)
                 files += 
                 '<div class="file" id="file-' + i + '" title="Size: ' + response[i].size + '\nUpload Date: ' + new Date(response[i].uploadDate) + '">\
                     <span class="helper"></span>\
-                    <img src="/img/' + response[i].filetype + '-icon.png">' + response[i].name + '\
+                    <img src="/public/img/' + response[i].filetype + '-icon.png">' + response[i].name + '\
                 </div>';
             }
             

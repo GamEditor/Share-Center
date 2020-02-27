@@ -7,15 +7,12 @@ const port = 8000;
 const responsedelay = 50;   // miliseconds
 const filespath = `./files`;
 
-// static folders
-app.use(express.static('public'));
-app.use(express.static(filespath));
-app.use(express.static('view'));
+app.use(express.static('./'));
 
 // home page
 app.get('/', function(req, res)
 {
-    res.sendFile('index.html');
+    res.sendFile(`${__dirname}/view/index.html`);
 });
 
 // upload handler
