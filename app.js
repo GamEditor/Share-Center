@@ -47,7 +47,6 @@ app.get('/files-list', function(req, res)
 
     fs.readdir(folder, function(err, files)
     {
-        console.log(files);
         if(err)
         {
             console.log(err);
