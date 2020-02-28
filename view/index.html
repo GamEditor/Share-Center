@@ -9,17 +9,18 @@
 
     <title>Share Center</title>
     <link rel="shortcut icon" type="image/png" href="/public/img/fav-icon.ico" />
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/contextmenu.css" />
+    
+    <script src="/public/js/uploader.js"></script>
+    <script src="/public/js/deletefile.js"></script>
+    <script src="/public/js/getfilelist.js"></script>
+    <script src="/public/js/fileselector.js"></script>
+    <script src="/public/js/checkbrowser.js"></script>
 </head>
 
 <body onmouseup="startSelection(event)">
-    <!-- loading scripts and styles -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/contextmenu.css" />
-    <script src="/public/js/deletefile.js"></script>
-    <script src="/public/js/getfilelist.js"></script>
-    <script src="/public/js/uploader.js"></script>
-    <script src="/public/js/fileselector.js"></script>
-
     <!-- <div id="delete_blocker_panel">
         <img src="/img/remove.gif">
     </div> -->
@@ -37,10 +38,18 @@
         </form>
     </div>
 
-    <div class="progressBar-container">
+    <div id="progress" class="progressBar-container">
         <p id="progress-percentage">0%</p>
         <div id="progressBar"></div>
     </div>
+
+    <script>
+        if(isInternetExplorer())
+        {
+            document.getElementById('fileuploader').innerHTML = '<span class="alertmessage">Internet Explorer doesn\'t support some functionalities!</span>';
+            document.getElementById('progress').outerHTML = '';
+        }
+    </script>
 
     <div><img id="loadinggif" src="/public/img/loading.gif" alt="Loading Files..."></div>
     

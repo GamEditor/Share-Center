@@ -79,16 +79,7 @@ function getListOfFiles(filesContainerId, loadingGifId, directoryDisplayerId)
             }
 
             // showing directory on ui
-            var folders = response[0].path.split('/');
-            var result = '';
-
-            for(var i = 0; i < folders.length; i++)
-            {
-                result += '<span class="directory">' + folders[i] + '</span>/';
-            }
-            
-            result = result.substring(0, result.length - 1);    // removing last / from result
-            directoryDisplayer.innerHTML = result;              // showing result on screen
+            directoryDisplayer.innerHTML = getDirectoryElements(response[0].path);
         }
     };
     
@@ -181,21 +172,11 @@ function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId)
             }
             else
             {
-                // hiding loading gif
-                loadinggif.style.display = "none";
+                loadinggif.style.display = "none";  // hiding loading gif
             }
 
             // showing directory on ui
-            var folders = response[0].path.split('/');
-            var result = '';
-
-            for(var i = 0; i < folders.length; i++)
-            {
-                result += '<span class="directory">' + folders[i] + '</span>/';
-            }
-            
-            result = result.substring(0, result.length - 1);    // removing last / from result
-            directoryDisplayer.innerHTML = result;              // showing result on screen
+            directoryDisplayer.innerHTML = getDirectoryElements(response[0].path);
         }
     };
 
@@ -203,4 +184,15 @@ function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId)
     xhr.open("GET", "files-list?path=" + path, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send();
+}
+
+function getDirectoryElements(path)
+{
+    var folders = path.split('/');
+    var result = '';
+
+    for(var i = 0; i < folders.length; i++)
+        result += '<span class="directory">' + folders[i] + '</span>/';
+    
+    return result.substring(0, result.length - 1);    // removing last / from result
 }
