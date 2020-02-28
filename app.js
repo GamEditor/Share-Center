@@ -5,7 +5,7 @@ const multer = require('multer');
 
 const port = 8000;
 const responsedelay = 50;   // miliseconds
-const filespath = `./files`;
+const filespath = `files`;
 
 app.use(express.static('./'));
 
@@ -78,8 +78,14 @@ app.get('/files-list', function(req, res)
         }
         else
         {
-            // empty response doesn't need delay
-            res.send('').status(200);
+            // when directory is empty
+            response.push(
+            {
+                path: folder,
+                filetype: 'folder',
+            });
+
+            res.send(JSON.stringify(response)).status(200);
         }
     });
 });

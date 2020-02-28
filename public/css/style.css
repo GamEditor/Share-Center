@@ -1,4 +1,4 @@
-* {
+ * {
     user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
@@ -6,8 +6,11 @@
 }
 
 body {
+    /* position: fixed; */
     background-color: rgb(42, 52, 61);
     font-family: Arial;
+    /* width: 100%;
+    height: 100%; */
 }
 
 #delete_blocker_panel {
@@ -28,7 +31,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-span.path:hover {
+span.directory:hover {
     cursor: pointer;
     text-decoration: none;
     color: rgb(255, 195, 48);
@@ -111,10 +114,6 @@ div.file:hover {
     background-color: rgba(173, 216, 230, 0.300);
 }
 
-.item-button {
-    cursor: pointer;
-}
-
 #loadinggif {
     position: fixed;
     display: none;
@@ -123,4 +122,14 @@ div.file:hover {
     width: 5vw;
     height: 5vw;
     transform: translate(-50%, -50%);
+}
+
+#fileholder {
+    overflow: auto;
+}
+
+#selector {
+    position: fixed;
+    background-color: rgba(255, 195, 48, 0.25);
+    border: 1px solid rgb(255, 195, 48);
 }

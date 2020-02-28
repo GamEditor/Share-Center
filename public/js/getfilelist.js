@@ -1,12 +1,14 @@
 /**
  * request files
- * @param filestableid the place of showing files at innerHTML.
- * @param loadinggifid until waiting for response from server, this (gif) image will be displayed.
+ * @param filesContainerId the place of showing files at innerHTML.
+ * @param loadingGifId until waiting for response from server, this (gif) image will be displayed.
+ * @param directoryDisplayerId a container for showing current path
  */
-function getListOfFiles(filestableid, loadinggifid)
+function getListOfFiles(filesContainerId, loadingGifId, directoryDisplayerId)
 {
-    const filesholder = document.getElementById(filestableid);
-    const loadinggif = document.getElementById(loadinggifid);
+    const filesholder = document.getElementById(filesContainerId);
+    const loadinggif = document.getElementById(loadingGifId);
+    const directoryDisplayer = document.getElementById(directoryDisplayerId);
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function()
@@ -71,10 +73,22 @@ function getListOfFiles(filestableid, loadinggifid)
                 {
                     file.addEventListener('dblclick', function(ev)
                     {
-                        openFolder(file.getAttribute('path'), filestableid, loadinggifid);
+                        openFolder(file.getAttribute('path'), filesContainerId, loadingGifId, directoryDisplayerId);
                     });
                 }
             }
+
+            // showing directory on ui
+            var folders = response[0].path.split('/');
+            var result = '';
+
+            for(var i = 0; i < folders.length; i++)
+            {
+                result += '<span class="directory">' + folders[i] + '</span>/';
+            }
+            
+            result = result.substring(0, result.length - 1);    // removing last / from result
+            directoryDisplayer.innerHTML = result;              // showing result on screen
         }
     };
     
@@ -89,10 +103,11 @@ function download(path)
     window.open(path);
 }
 
-function openFolder(path, filestableid, loadinggifid)
+function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId)
 {
-    const filesholder = document.getElementById(filestableid);
-    const loadinggif = document.getElementById(loadinggifid);
+    const filesholder = document.getElementById(filesContainerId);
+    const loadinggif = document.getElementById(loadingGifId);
+    const directoryDisplayer = document.getElementById(directoryDisplayerId);
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function()
@@ -116,51 +131,71 @@ function openFolder(path, filestableid, loadinggifid)
             const response = JSON.parse(this.responseText);
             let files = '';
     
-            // creating files elements on an string
-            for(let i = 0; i < response.length; i++)
+            if(response.length > 1)
             {
-                files += 
-                '<div class="file" id="file-' + i + '" title="Size: ' + response[i].size + '\nUpload Date: ' + new Date(response[i].uploadDate) + '">\
+                // creating files elements on an string
+                for(let i = 0; i < response.length; i++)
+                {
+                    files += 
+                    '<div class="file" id="file-' + i + '" title="Size: ' + response[i].size + '\nUpload Date: ' + new Date(response[i].uploadDate) + '">\
                     <span class="helper"></span>\
                     <img src="/public/img/' + response[i].filetype + '-icon.png">' + response[i].name + '\
-                </div>';
+                    </div>';
+                }
+                
+                // attaching created elements to dom
+                filesholder.innerHTML = files;
+                
+                // hiding loading gif
+                loadinggif.style.display = "none";
+                
+                // adding custom attributes to elements
+                for(let i = 0; i < response.length; i++)
+                {
+                    let file = document.getElementById('file-' + i);
+                    
+                    let type = document.createAttribute('type');
+                    let path = document.createAttribute('path');
+                    
+                    type.value = response[i].filetype;
+                    path.value = encodeURI(response[i].path + '/' + response[i].name);
+                    
+                    file.setAttributeNode(type);
+                    file.setAttributeNode(path);
+                    
+                    if(file.getAttribute('type') == 'file')
+                    {
+                        file.addEventListener('dblclick', function(ev)
+                        {
+                            download(file.getAttribute('path'));
+                        });
+                    }
+                    else
+                    {
+                        file.addEventListener('dblclick', function(ev)
+                        {
+                            openFolder(file.getAttribute('path'), filesContainerId, loadingGifId, directoryDisplayerId);
+                        });
+                    }
+                }
             }
-            
-            // attaching created elements to dom
-            filesholder.innerHTML = files;
-            
-            // hiding loading gif
-            loadinggif.style.display = "none";
-            
-            // adding custom attributes to elements
-            for(let i = 0; i < response.length; i++)
+            else
             {
-                let file = document.getElementById('file-' + i);
-                
-                let type = document.createAttribute('type');
-                let path = document.createAttribute('path');
-                
-                type.value = response[i].filetype;
-                path.value = encodeURI(response[i].path + '/' + response[i].name);
-                
-                file.setAttributeNode(type);
-                file.setAttributeNode(path);
-    
-                if(file.getAttribute('type') == 'file')
-                {
-                    file.addEventListener('dblclick', function(ev)
-                    {
-                        download(file.getAttribute('path'));
-                    });
-                }
-                else
-                {
-                    file.addEventListener('dblclick', function(ev)
-                    {
-                        openFolder(file.getAttribute('path'), filestableid, loadinggifid);
-                    });
-                }
+                // hiding loading gif
+                loadinggif.style.display = "none";
             }
+
+            // showing directory on ui
+            var folders = response[0].path.split('/');
+            var result = '';
+
+            for(var i = 0; i < folders.length; i++)
+            {
+                result += '<span class="directory">' + folders[i] + '</span>/';
+            }
+            
+            result = result.substring(0, result.length - 1);    // removing last / from result
+            directoryDisplayer.innerHTML = result;              // showing result on screen
         }
     };
 
