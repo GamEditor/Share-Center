@@ -128,6 +128,23 @@ div.file:hover {
     overflow: auto;
 }
 
+#emptyFolderBackground {
+    position: fixed;
+    width: 199px;
+    height: 151px;
+    bottom: 0;
+    display: none;
+
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* 
+#emptyFolderBackground img {
+    display: block;
+    margin: auto;
+} */
+
 #selector {
     display: none;
     position: fixed;

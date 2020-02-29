@@ -57,24 +57,26 @@
         <div  onclick="//createnewfolder()" title="New Folder">
             <img src="/public/img/new-folder.png">
         </div>
-        <div onclick="getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer')" title="Refresh">
+        <div onclick="getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground')" title="Refresh">
             <img src="/public/img/refresh-icon.png">
         </div>
     </div>
 
-    <div id="directoryDisplayer" class="directoryDisplayer">
-        <span class="directory">files</span>
-    </div>
+    <div id="directoryDisplayer" class="directoryDisplayer"></div>
 
     <div id="fileholder">
         <!-- files will be listed here -->
+    </div>
+
+    <div id="emptyFolderBackground">
+        <img src="/public/img/emptyfolder.png" width="199" height="151">
     </div>
 
     <div id="selector"></div>
 
     <script>
         // get list of files on start
-        getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer');
+        getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground');
     </script>
 </body>
 
