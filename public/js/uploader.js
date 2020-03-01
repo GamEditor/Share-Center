@@ -1,6 +1,6 @@
 let isuploading = false;    // user can not upload another file when an upload in progress
 
-function uploadToServer(form, uploadProgressDisplayer, progresstext, filestableid, loadinggifid)
+function uploadToServer(form, uploadProgressDisplayer, progresstext, filestableid, loadinggifid, directoryDisplayerId, emptyFolderBackgroundId)
 {
     let formData = new FormData(form);
 
@@ -28,7 +28,7 @@ function uploadToServer(form, uploadProgressDisplayer, progresstext, filestablei
                     {
                         form.reset();           // reset() will empty all form information
                         isuploading = false;    // enable user to upload again
-                        getListOfFiles(filestableid, loadinggifid); // updating list of files after upload finished
+                        getListOfFiles(filestableid, loadinggifid, directoryDisplayerId, emptyFolderBackgroundId); // updating list of files after upload finished
                     }
                 }
                 else
