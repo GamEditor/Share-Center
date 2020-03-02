@@ -33,6 +33,7 @@ var upload = multer({ storage: uploadStorage });
 
 app.post('/', upload.single('file'), function(req, res)
 {
+    res.status(200).send();
     console.log(req.file);
     console.log('file upload...');
 });
