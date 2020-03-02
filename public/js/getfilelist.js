@@ -5,7 +5,7 @@
  * @param directoryDisplayerId a container for showing current path
  * @param emptyFolderBackgroundId if a folder is empty, then a background will be displayed
  */
-function getListOfFiles(filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
+function getListOfFiles(refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
 {
     const emptyFolderBackground = document.getElementById(emptyFolderBackgroundId);
     const filesholder = document.getElementById(filesContainerId);
@@ -77,7 +77,7 @@ function getListOfFiles(filesContainerId, loadingGifId, directoryDisplayerId, em
                     {
                         file.addEventListener('dblclick', function(ev)
                         {
-                            openFolder(file.getAttribute('path'), filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
+                            openFolder(file.getAttribute('path'), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
                         });
                     }
                 }
@@ -88,7 +88,7 @@ function getListOfFiles(filesContainerId, loadingGifId, directoryDisplayerId, em
             }
 
             // showing directory on ui
-            makeDirectoryElements(response[0].path, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
+            makeDirectoryElements(response[0].path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
         }
     };
     
@@ -103,7 +103,7 @@ function openFile(path)
     window.open(path);
 }
 
-function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
+function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
 {
     const emptyFolderBackground = document.getElementById(emptyFolderBackgroundId);
     const filesholder = document.getElementById(filesContainerId);
@@ -175,7 +175,7 @@ function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId, 
                     {
                         file.addEventListener('dblclick', function(ev)
                         {
-                            openFolder(file.getAttribute('path'), filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
+                            openFolder(file.getAttribute('path'), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
                         });
                     }
                 }
@@ -186,7 +186,7 @@ function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId, 
             }
 
             // showing directory on ui
-            makeDirectoryElements(response[0].path, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
+            makeDirectoryElements(response[0].path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
         }
     };
 
@@ -196,9 +196,10 @@ function openFolder(path, filesContainerId, loadingGifId, directoryDisplayerId, 
     xhr.send();
 }
 
-function makeDirectoryElements(path, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
+function makeDirectoryElements(path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId)
 {
     var directoryDisplayer = document.getElementById(directoryDisplayerId);
+    const refreshButton = document.getElementById(refreshButtonId);
 
     var folders = path.split('/');
     var result = '';
@@ -227,7 +228,9 @@ function makeDirectoryElements(path, filesContainerId, loadingGifId, directoryDi
         
         dir.addEventListener('click', function(ev)
         {
-            openFolder(dir.getAttribute('path'), filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
+            openFolder(dir.getAttribute('path'), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
         });
     }
+
+    refreshButton.setAttribute('path', path);
 }

@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/contextmenu.css" />
     
+    <script src="/public/js/starter.js"></script>
     <script src="/public/js/uploader.js"></script>
     <script src="/public/js/deletefile.js"></script>
     <script src="/public/js/getfilelist.js"></script>
@@ -57,8 +58,11 @@
         <div  onclick="//createnewfolder()" title="New Folder">
             <img src="/public/img/new-folder.png">
         </div>
-        <div onclick="getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground')" title="Refresh">
+        <div id="refreshButton" onclick="openFolder(this.getAttribute('path'), this.id, 'fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground')" title="Refresh">
             <img src="/public/img/refresh-icon.png">
+            <script>
+                initRefreshButton('refreshButton');
+            </script>
         </div>
     </div>
 
@@ -76,7 +80,7 @@
 
     <script>
         // get list of files on start
-        getListOfFiles('fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground');
+        getListOfFiles('refreshButton', 'fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground');
     </script>
 </body>
 
