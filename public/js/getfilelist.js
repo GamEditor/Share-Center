@@ -16,8 +16,9 @@ function getListOfFiles(refreshButtonId, filesContainerId, loadingGifId, directo
     {
         if(this.readyState < 4)
         {
-            filesholder.innerHTML = "";
-            loadinggif.style.display = "block";
+            filesholder.innerHTML = '';
+            emptyFolderBackground.style.display = 'none';
+            loadinggif.style.display = 'block';
         }
         
         if(this.readyState == 4 && this.status == 200)
@@ -114,8 +115,9 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
     {
         if(this.readyState < 4)
         {
-            filesholder.innerHTML = "";
-            loadinggif.style.display = "block";
+            filesholder.innerHTML = '';
+            emptyFolderBackground.style.display = 'none';
+            loadinggif.style.display = 'block';
         }
 
         if(this.readyState == 4 && this.status == 200)
