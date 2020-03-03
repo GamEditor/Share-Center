@@ -13,12 +13,11 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/contextmenu.css" />
     
-    <script src="/public/js/starter.js"></script>
+    <script src="/public/js/getfilelist.js"></script>
     <script src="/public/js/uploader.js"></script>
     <script src="/public/js/deletefile.js"></script>
-    <script src="/public/js/getfilelist.js"></script>
     <script src="/public/js/fileselector.js"></script>
-    <script src="/public/js/checkbrowser.js"></script>
+    <script src="/public/js/starter.js"></script>
 </head>
 
 <body>
@@ -47,44 +46,27 @@
         <div id="progressBar"></div>
     </div>
 
-    <script>
-        if(isInternetExplorer())
-        {
-            document.getElementById('fileuploader').innerHTML = '<span class="alertmessage">Internet Explorer doesn\'t support some functionalities!</span>';
-            document.getElementById('progress').outerHTML = '';
-        }
-    </script>
-
     <div><img id="loadinggif" src="/public/img/loading.gif" alt="Loading Files..."></div>
     
     <div class="header-buttons">
         <div  onclick="//createnewfolder()" title="New Folder">
             <img src="/public/img/new-folder.png">
         </div>
-        <div id="refreshButton" onclick="openFolder(this.getAttribute('path'), this.id, 'fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground')" title="Refresh">
+        <div id="refreshButton" title="Refresh">
             <img src="/public/img/refresh-icon.png">
-            <script>
-                initRefreshButton('refreshButton');
-            </script>
         </div>
     </div>
 
     <div id="directoryDisplayer" class="directoryDisplayer"></div>
 
-    <div id="fileholder">
-        <!-- files will be listed here -->
-    </div>
+    <!-- files will be listed here -->
+    <div id="fileholder"></div>
 
     <div id="emptyFolderBackground">
         <img src="/public/img/emptyfolder.png" width="199" height="151">
     </div>
 
     <div id="selector"></div>
-
-    <script>
-        // get list of files on start
-        getListOfFiles('refreshButton', 'fileholder', 'loadinggif', 'directoryDisplayer', 'emptyFolderBackground');
-    </script>
 </body>
 
 </html>

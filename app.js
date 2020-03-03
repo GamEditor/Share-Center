@@ -5,7 +5,7 @@ const multer = require('multer');
 
 const port = 8000;
 const responsedelay = 50;   // miliseconds
-const filespath = `files`;
+const rootPath = `files`;
 
 app.use(express.static('./'));
 
@@ -41,12 +41,15 @@ app.post('/', upload.single('file'), function(req, res)
 // all type of files except images will explored here
 app.get('/files-list', function(req, res)
 {
-    let folder = filespath;
+    let folder = rootPath;
     let response = [];
 
     if(req.query.path)
         folder = req.query.path;
-
+    
+    if(!fs.existsSync(folder))
+        folder = rootPath;
+    
     fs.readdir(folder, function(err, files)
     {
         if(err)
