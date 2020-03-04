@@ -19,7 +19,7 @@ function uploadToServer(form, refreshButton, uploadProgressDisplayer, progresste
             
             xhr.upload.addEventListener('progress', function(ev)
             {
-                let progress = Math.max(ev.loaded / ev.total * 100).toFixed(2);
+                let progress = Math.max(ev.loaded / ev.total * 100).toFixed(0);
         
                 if (ev.lengthComputable)
                 {

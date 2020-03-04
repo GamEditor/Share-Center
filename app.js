@@ -31,10 +31,10 @@ var uploadStorage = multer.diskStorage(
 
 var upload = multer({ storage: uploadStorage });
 
-app.post('/', upload.single('file'), function(req, res)
+app.post('/', upload.any(), function(req, res)
 {
     res.status(200).send();
-    console.log(req.file);
+    console.log(req.files);
     console.log('file upload...');
 });
 

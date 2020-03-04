@@ -39,31 +39,26 @@ span.directory:hover {
 }
 
 div.progressBar-container {
-    position: sticky;
-    top: 1%;
+    position: relative;
     height: 20px;
     margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: inherit;
     border: 1px solid rgb(255, 195, 48);
 }
 
 #progress-percentage {
     position: absolute;
+    font-size: 20px;
     margin: 0;
-    left: 0;
-    top: 50%;
     width: 100%;
+    height: 100%;
     text-align: center;
     color: white;
-    line-height: 0;
-    z-index: 1;
+    z-index: 2;
     text-shadow: 1px 1px rgb(42, 52, 61);
 }
 
 div#progressBar {
     position: absolute;
-    top: 0;
     margin: 0;
     background-color: rgb(255, 195, 48);
     height: 100%;
@@ -72,6 +67,7 @@ div#progressBar {
 
 div#fileuploader {
     padding: 1%;
+    border: 2px dashed rgb(255, 195, 48);
     color: white;
     background-color: rgb(69, 78, 87);
 }

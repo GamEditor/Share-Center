@@ -26,9 +26,9 @@
     </div> -->
 
     <div id="fileuploader">
-        <p><b>Upload files</b></p>
+        <p>Upload files by draging them here or using file selection window.</p>
         <form id="form_fileUpload" method="POST" action="/?type=file" enctype="multipart/form-data">
-            <input type="file" name="file"> <!-- required -->
+            <input type="file" name="file" multiple> <!-- required -->
             <input type="button" name="uploadbutton" onclick="uploadToServer(
                 document.getElementById('form_fileUpload'),
                 'refreshButton',
@@ -39,12 +39,12 @@
                 'directoryDisplayer',
                 'emptyFolderBackground')" value="Upload">
         </form>
+        <div id="progress" class="progressBar-container">
+            <p id="progress-percentage">0%</p>
+            <div id="progressBar"></div>
+        </div>
     </div>
 
-    <div id="progress" class="progressBar-container">
-        <p id="progress-percentage">0%</p>
-        <div id="progressBar"></div>
-    </div>
 
     <div><img id="loadinggif" src="/public/img/loading.gif" alt="Loading Files..."></div>
     
