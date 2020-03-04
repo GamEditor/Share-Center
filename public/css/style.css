@@ -78,6 +78,7 @@ div.directoryDisplayer {
 }
 
 div.header-buttons {
+    margin-top: 10px;
     width: 100%;
     height: 32px;
 }

@@ -14,6 +14,10 @@ window.onload = function()
         document.getElementById(fileuploaderId).innerHTML = '<span class="alertmessage">Internet Explorer doesn\'t support the most functionalities!</span>';
         document.getElementById(progressId).outerHTML = '';
     }
+    else
+    {
+        document.getElementById(progressId).style.display = 'none';
+    }
 
     // initialize ui buttons
     // initUploadbutton();
