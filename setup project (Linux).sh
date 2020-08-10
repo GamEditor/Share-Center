@@ -1,11 +1,11 @@
-if [[ ! -d "files" ]]
+if [[ ! -d "userdata/files" ]]
 then
-	if [ -L "files" ]
+	if [ -L "userdata/files" ]
 	then
-    	echo "./files exists"
+    	echo "./userdata/files exists"
 	else
-		mkdir "./files"
-		echo "./files created"
+		mkdir "./userdata/files"
+		echo "./userdata/files created"
     fi
 fi
 

@@ -9,11 +9,13 @@
 
     <title>Share Center</title>
     <link rel="shortcut icon" type="image/png" href="/public/img/fav-icon.ico" />
-    
+
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/contextmenu.css" />
-    
+
+    <script src="/public/js/libs/jquery-3.5.1.min.js"></script>
     <script src="/public/js/getfilelist.js"></script>
+    <script src="/public/js/mediaPlayer.js"></script>
     <script src="/public/js/uploader.js"></script>
     <script src="/public/js/deletefile.js"></script>
     <script src="/public/js/fileselector.js"></script>
@@ -25,8 +27,18 @@
         <img src="/img/remove.gif">
     </div> -->
 
+    <div id="mediaPlayerContainer">
+        <div id="closeMediaPlayer">X</div>
+        <div id="minimizeMediaPlayer">-</div>
+        <div id="maximizeMediaPlayer"><img src="/public/img/audioPlayerMaximize.png" width="100%"></div>
+
+        <div id="mediaPlayer">
+            <audio id="audioPlayer" controls controlsList="nodownload"></audio>
+        </div>
+    </div>
+
     <div id="fileuploader">
-        <p>Upload files by draging them here or using file selection window.</p>
+        <p>Drag your files everywhere on any folder.</p>
         <form id="form_fileUpload" method="POST" action="/?type=file" enctype="multipart/form-data">
             <input type="file" name="file" multiple> <!-- required -->
             <input type="button" name="uploadbutton" onclick="uploadToServer(
@@ -48,9 +60,9 @@
 
 
     <div><img id="loadinggif" src="/public/img/loading.gif" alt="Loading Files..."></div>
-    
+
     <div class="header-buttons">
-        <div  onclick="//createnewfolder()" title="New Folder">
+        <div onclick="//createnewfolder()" title="New Folder">
             <img src="/public/img/new-folder.png">
         </div>
         <div id="refreshButton" title="Refresh">

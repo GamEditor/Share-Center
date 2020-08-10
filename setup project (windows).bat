@@ -1,3 +1,3 @@
-if not exist "files" mkdir files
+if not exist "userdata/files" mkdir "userdata/files"
 
 npm install --save
