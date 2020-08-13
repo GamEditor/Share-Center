@@ -1,0 +1,32 @@
+.unknownExtension {
+    background-image: url('/public/img/fileExtensions/unknown.png');
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    margin: 0 5px 0 0;
+    padding: 0;
+}
+
+.folder {
+    background-image: url('/public/img/fileExtensions/folder.png') !important;
+}
+
+.dll, .exe, .msi {
+    background-image: url('/public/img/fileExtensions/binary.png') !important;
+}
+
+.gif, .jpg, .png {
+    background-image: url('/public/img/fileExtensions/image.png') !important;
+}
+
+.\37zip, .rar, .zip {
+    background-image: url('/public/img/fileExtensions/compressed.png') !important;
+}
+
+.mp3, .wav {
+    background-image: url('/public/img/fileExtensions/music.png') !important;
+}
+
+.mp4, .avi {
+    background-image: url('/public/img/fileExtensions/movie.png') !important;
+}

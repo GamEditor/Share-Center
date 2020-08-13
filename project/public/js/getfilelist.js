@@ -33,9 +33,7 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
                 for (let i = 0; i < response.length; i++) {
                     files +=
                         '<div class="file" id="file-' + i + '" title="Size: ' + response[i].size + '\nUpload Date: ' + new Date(response[i].uploadDate) + '">\
-                    <span class="helper"></span>\
-                    <img width="32px" src="public/img/fileExtensions/' + response[i].extension + '.png">' + response[i].name + '\
-                    </div>';
+                    <div class="' + response[i].extension + ' unknownExtension"></div><div>' + response[i].name + '</div></div>';
                 }
 
                 filesholder.innerHTML = files;      // attaching created elements to dom
