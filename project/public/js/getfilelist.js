@@ -75,25 +75,17 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
 }
 
 function makeDirectoryElements(path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId) {
-    var directoryDisplayer = document.getElementById(directoryDisplayerId);
-    const refreshButton = document.getElementById(refreshButtonId);
-
-    var folders = path.split('/');
+    const folders = path.split('/');
     var result = '';
-
-    for (let i = 0; i < folders.length; i++) {
+    for (let i = 0; i < folders.length; i++)
         result += '<span id="dir-' + i + '" class="directory">' + folders[i] + '</span>/';
-    }
 
-    directoryDisplayer.innerHTML = result.substring(0, result.length - 1);
+    $(`#${directoryDisplayerId}`).html(result.substring(0, result.length - 1));
 
     // when click on directory name, that previous folder will be open
     // if last directory (current opened folder) so hasn't onclick listener
     for (let i = 0; i < folders.length - 1; i++) {
         let dir = $("#dir-" + i);
-
-        // let dir = document.getElementById('dir-' + i);
-        // let pathAttribute = document.createAttribute('path');
 
         let path = '';
         for (let j = 0; j <= i; j++)
@@ -101,16 +93,12 @@ function makeDirectoryElements(path, refreshButtonId, filesContainerId, loadingG
 
         dir.attr("data-path", encodeURI(path.substring(0, path.length - 1)));
 
-        // pathAttribute.value = encodeURI(path.substring(0, path.length - 1));
-
-        // dir.setAttributeNode(pathAttribute);
-
         dir.on("click", function (event) {
             openFolder($(this).attr("data-path"), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
         });
     }
 
-    refreshButton.setAttribute('path', path);
+    $(`#${refreshButtonId}`).attr('data-path', path);
 }
 
 function openFile(extension, path) {
