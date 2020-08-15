@@ -35,16 +35,15 @@ app.post('/', upload.any(), function (req, res) {
 // all type of files except images will explored here
 app.get('/files-list', function (req, res) {
     let rootFolder;
-    let folder;
     let response = [];
 
     if (req.query.path)
-        rootFolder = req.query.path;
+        rootFolder = `userdata/${req.query.path}`;
 
     if (!fs.existsSync(rootFolder))
         rootFolder = rootPath;
 
-    folder = rootFolder.substring('userdata'.length + 1);
+    const folder = rootFolder.indexOf('userdata') == 0 ? rootFolder.substring('userdata'.length + 1) : rootFolder;
 
     fs.readdir(rootFolder, function (err, files) {
         if (err) {
@@ -62,7 +61,7 @@ app.get('/files-list', function (req, res) {
 
                     response.push({
                         name: value,
-                        path: isFile ? folder : rootFolder,
+                        path: folder,
                         size: filesize,
                         filetype: isFile ? 'file' : 'folder',
                         extension: isFile ? fileExtension[fileExtension.length - 1] : 'folder',
@@ -76,7 +75,7 @@ app.get('/files-list', function (req, res) {
         } else {
             // when directory is empty
             response.push({
-                path: rootFolder,
+                path: folder,
                 filetype: 'folder',
             });
 
