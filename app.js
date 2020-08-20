@@ -84,6 +84,16 @@ app.get('/files-list', function (req, res) {
     });
 });
 
+app.put('/', function (req, res) {
+    const newFolder = `userdata/${req.query.newfolder}`;
+    fs.mkdir(newFolder, function (err) {
+        if (err)
+            res.status(500).send(err);
+        else
+            res.status(200).send();
+    });
+});
+
 app.delete('/filedir/', function (req, res) {
     console.log(req.query);
 });
