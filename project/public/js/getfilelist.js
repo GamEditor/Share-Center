@@ -54,7 +54,7 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
                         });
                     }
                     else {
-                        file.on("dblclick", function (ev) {
+                        file.on("click", function (ev) {
                             openFolder(file.attr("data-path"), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
                         });
                     }

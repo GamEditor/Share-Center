@@ -10,6 +10,10 @@ body {
     font-family: Arial;
 }
 
+[data-type="folder"] {
+    cursor: pointer;
+}
+
 #mediaPlayerContainer {
     display: none;
     position: fixed;
