@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 // upload handler
 var uploadStorage = multer.diskStorage({
     // file name must be verified before upload and if the file name is repeatitive then rename it
-    destination: function (req, file, cb) { cb(null, req.query.path); },
+    destination: function (req, file, cb) { cb(null, `userdata/${req.query.path}`); },
     filename: function (req, file, cb) { cb(null, file.originalname); }
 });
 
