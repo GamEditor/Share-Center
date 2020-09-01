@@ -11,6 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="/public/img/fav-icon.ico" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/mediaPlayer.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/fileExtensions.css" />
 
     <script src="/public/js/libs/jquery-3.5.1.min.js"></script>
@@ -28,13 +29,26 @@
         <img src="/img/remove.gif">
     </div> -->
 
-    <div id="mediaPlayerContainer">
-        <div id="closeMediaPlayer">X</div>
-        <div id="minimizeMediaPlayer">-</div>
-        <div id="maximizeMediaPlayer"><img src="/public/img/audioPlayerMaximize.png" width="100%"></div>
+    <div id="musicPlayerContainer">
+        <div id="closeMusicPlayer">X</div>
+        <div id="minimizeMusicPlayer">-</div>
+        <div id="maximizeMusicPlayer"><img src="/public/img/audioPlayerMaximize.png" width="100%"></div>
 
-        <div id="mediaPlayer">
+        <div id="musicPlayer">
             <audio id="audioPlayer" controls controlsList="nodownload"></audio>
+        </div>
+    </div>
+
+    <div id="moviePlayerContainer" data-windowState="max">
+        <div id="videoTitle">man on the boomehan.mp4</div>
+        <div id="closeMoviePlayer">X</div>
+        <div id="minimizeMoviePlayer">-</div>
+        <!-- <div id="maximizeMoviePlayer"><img src="/public/img/audioPlayerMaximize.png" width="100%"></div> -->
+
+        <div id="moviePlayer">
+            <video id="videoPlayer" controls controlsList="nodownload">
+                <source src="files/vid.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
 
