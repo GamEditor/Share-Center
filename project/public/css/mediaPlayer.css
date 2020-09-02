@@ -1,0 +1,126 @@
+/* music player */
+
+#musicPlayerContainer {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background-color: rgb(255, 195, 48);
+    z-index: 100;
+}
+
+#closeMusicPlayer, #minimizeMusicPlayer {
+    width: 40px;
+    height: 25px;
+    right: 3px;
+    position: absolute;
+    color: white;
+    text-align: center;
+    font-size: 23px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+#closeMusicPlayer {
+    top: 2px;
+    background-color: red;
+}
+
+#minimizeMusicPlayer {
+    top: 28px;
+    background-color: rgb(87, 87, 87);
+}
+
+#maximizeMusicPlayer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    border-radius: 10px 0 0 0;
+    transform: translate(-100%, 0);
+    background-color: rgb(255, 195, 48);
+    color: white;
+    text-align: center;
+    font-size: 26px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+#audioPlayer {
+    position: absolute;
+    bottom: 1px;
+    right: 50%;
+    width: 65%;
+    transform: translate(50%, 0);
+}
+
+/* movie player */
+
+#moviePlayerContainer {
+    /* display: none; */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    transform: translate(-5%, -5%);
+    width: 90%;
+    height: 90%;
+    background-color: rgb(255, 195, 48);
+    z-index: 100;
+}
+
+#videoTitle {
+    position: absolute;
+    height: 16px;
+    font-size: 16px;
+    left: 10px;
+    top: 12px;
+    width: calc(100% - 90px);
+    line-break: anywhere;
+    overflow: hidden;
+}
+
+#closeMoviePlayer {
+    position: absolute;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    background-color: red;
+}
+
+#minimizeMoviePlayer {
+    position: absolute;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    background-color: rgb(87, 87, 87);
+}
+
+#moviePlayer {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+video#videoPlayer {
+    width: 100%;
+    height: 100%;
+}
