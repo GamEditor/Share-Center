@@ -102,17 +102,20 @@ function makeDirectoryElements(path, refreshButtonId, filesContainerId, loadingG
 }
 
 function openFile(extension, path) {
+    let fileName = path.split("/");
+    fileName = fileName[fileName.length - 1];
+
     switch (extension) {
         /* musics: */
         case "mp3":
         case "wav":
-            playAudio(path);
+            playAudio(path, fileName);
             break;
 
         /* movies */
         case "mp4":
         case "webm":
-            playVideo(path);
+            playVideo(path, fileName);
             break;
 
         default:

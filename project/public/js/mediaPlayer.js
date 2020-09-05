@@ -31,9 +31,9 @@ $(function (event) {
     });
 
     $("#minimizeMoviePlayer").on("click", function (event) {
-        var moviePlayerContainer = $("#moviePlayerContainer");
-        
-        if(moviePlayerContainer.attr("data-windowState") == "max") {
+        let moviePlayerContainer = $("#moviePlayerContainer");
+
+        if (moviePlayerContainer.attr("data-windowState") == "max") {
             moviePlayerContainer.animate({
                 width: "-=60%",
                 height: "-=60%",
@@ -53,7 +53,7 @@ $(function (event) {
     });
 });
 
-function playAudio(path, type) {
+function playAudio(path, fileName) {
     let musicPlayerContainer = $("#musicPlayerContainer");
 
     let musicPlayer = $("#musicPlayer");
@@ -67,6 +67,18 @@ function playAudio(path, type) {
     audioplayer.trigger("play");
 }
 
-function playVideo(path, type) {
+function playVideo(path, fileName) {
+    let moviePlayerContainer = $("#moviePlayerContainer");
 
+    let moviePlayer = $("#moviePlayer");
+    moviePlayer.html("<video id='videoPlayer' controls controlsList='nodownload'></video>");
+
+    $("#movieTitle").html(fileName);
+
+    moviePlayerContainer.show();
+
+    let videoPlayer = $("#videoPlayer");
+    videoPlayer.attr("src", path);
+    videoPlayer.trigger("load");
+    videoPlayer.trigger("play");
 }
