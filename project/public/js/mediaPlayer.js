@@ -53,7 +53,7 @@ $(function (event) {
     });
 });
 
-function playAudio(path, fileName) {
+function openAudio(path) {
     let musicPlayerContainer = $("#musicPlayerContainer");
 
     let musicPlayer = $("#musicPlayer");
@@ -67,13 +67,15 @@ function playAudio(path, fileName) {
     audioplayer.trigger("play");
 }
 
-function playVideo(path, fileName) {
+function openMovie(path) {
+    let fileName = path.split("/");
+
     let moviePlayerContainer = $("#moviePlayerContainer");
 
     let moviePlayer = $("#moviePlayer");
     moviePlayer.html("<video id='videoPlayer' controls controlsList='nodownload'></video>");
 
-    $("#movieTitle").html(fileName);
+    $("#movieTitle").html(fileName[fileName.length - 1]);
 
     moviePlayerContainer.show();
 
