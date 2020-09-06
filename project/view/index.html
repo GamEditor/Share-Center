@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/public/css/fileExtensions.css" />
 
     <script src="/public/js/libs/jquery-3.5.1.min.js"></script>
+    <script src="/public/js/libs/pdf.js"></script>
+
     <script src="/public/js/getfilelist.js"></script>
     <script src="/public/js/mediaPlayer.js"></script>
     <script src="/public/js/folderCreate.js"></script>
@@ -49,15 +51,66 @@
         </div>
     </div>
 
-    <!-- <div id="pdfViewerContainer" data-windowState="max">
+    <div id="pdfViewerContainer" data-windowState="max">
         <div id="pdfTitle">pdf title.mp4</div>
         <div id="closePdfViewer">X</div>
         <div id="minimizePdfViewer">-</div>
 
         <div id="pdfViewer">
-            <iframe src="https://pdfobject.com/pdf/sample-3pp.pdf?embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
+            <canvas id="the-canvas"></canvas>
         </div>
-    </div> -->
+    </div>
+
+    <style>
+        #the-canvas {
+            border: 1px solid black;
+            direction: ltr;
+        }
+    </style>
+
+    <script>
+        var url = 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf';
+
+        // Loaded via <script> tag, create shortcut to access PDF.js exports.
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+        // The workerSrc property shall be specified.
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/public/js/libs/pdf.worker.js';
+
+        // Asynchronous download of PDF
+        var loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function (pdf) {
+            console.log('PDF loaded');
+
+            // Fetch the first page
+            var pageNumber = 1;
+            pdf.getPage(pageNumber).then(function (page) {
+                console.log('Page loaded');
+
+                var scale = 1.5;
+                var viewport = page.getViewport({ scale: scale });
+
+                // Prepare canvas using PDF page dimensions
+                var canvas = document.getElementById('the-canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    console.log('Page rendered');
+                });
+            });
+        }, function (reason) {
+            // PDF loading error
+            console.error({error: reason});
+        });
+    </script>
 
     <div id="fileuploader">
         <form id="form_fileUpload" method="POST" action="/?type=file" enctype="multipart/form-data">
