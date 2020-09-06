@@ -43,14 +43,21 @@
         <div id="movieTitle">movie title.mp4</div>
         <div id="closeMoviePlayer">X</div>
         <div id="minimizeMoviePlayer">-</div>
-        <!-- <div id="maximizeMoviePlayer"><img src="/public/img/audioPlayerMaximize.png" width="100%"></div> -->
 
         <div id="moviePlayer">
-            <video id="videoPlayer" controls controlsList="nodownload">
-                <source src="files/vid.mp4" type="video/mp4">
-            </video>
+            <video id="videoPlayer" controls controlsList="nodownload"></video>
         </div>
     </div>
+
+    <!-- <div id="pdfViewerContainer" data-windowState="max">
+        <div id="pdfTitle">pdf title.mp4</div>
+        <div id="closePdfViewer">X</div>
+        <div id="minimizePdfViewer">-</div>
+
+        <div id="pdfViewer">
+            <iframe src="https://pdfobject.com/pdf/sample-3pp.pdf?embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>
+        </div>
+    </div> -->
 
     <div id="fileuploader">
         <form id="form_fileUpload" method="POST" action="/?type=file" enctype="multipart/form-data">

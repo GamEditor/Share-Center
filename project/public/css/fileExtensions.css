@@ -30,3 +30,19 @@
 .mp4, .avi {
     background-image: url('/public/img/fileExtensions/movie.png') !important;
 }
+
+.pdf {
+    background-image: url('/public/img/fileExtensions/pdf.png') !important;
+}
+
+.html {
+    background-image: url('/public/img/fileExtensions/html.png') !important;
+}
+
+.css {
+    background-image: url('/public/img/fileExtensions/css.png') !important;
+}
+
+.js {
+    background-image: url('/public/img/fileExtensions/js.png') !important;
+}
