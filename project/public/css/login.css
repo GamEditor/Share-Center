@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(42, 52, 61);
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+.formContainer {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px 0 20px 0;
+}
+
+.login-form input[type="password"], .login-form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(255, 196, 48);
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    color: #000000;
+}

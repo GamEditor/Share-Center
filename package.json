@@ -12,7 +12,11 @@
   "author": "mohammad fathi",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "express": "^4.16.3",
-    "multer": "^1.4.1"
+    "express-session": "^1.17.1",
+    "multer": "^1.4.1",
+    "mysql": "^2.18.1"
   }
 }

@@ -2,6 +2,14 @@ const fileUtility = require('./modules/FileUtility');
 
 const express = require('express');
 const app = express();
+
+const mysql = require('mysql');
+
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+
+const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 
@@ -12,9 +20,64 @@ const rootPath = `userdata/files`;
 app.use(express.static('./userdata'));
 app.use(express.static('./project'));
 
+app.use(cookieParser());
+app.use(session({
+    secret: "Shh, its a secret!",
+    cookie: { maxAge: 60000 },  // 1 min
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ShareCenterAuth'
+});
+
+function isLoggedIn(req) {
+    return req.session.loggedin ? true : false;
+}
+
 // home page
 app.get('/', function (req, res) {
-    res.sendFile(`${__dirname}/project/view/index.html`);
+    console.log({loggedIn: isLoggedIn(req)});
+
+    if (isLoggedIn(req)) {
+        res.sendFile(`${__dirname}/project/view/index.html`);
+    } else {
+        res.redirect('/login');
+    }
+});
+
+app.get('/login', function (req, res) {
+    if (!isLoggedIn(req)) {
+        res.sendFile(`${__dirname}/project/view/login.html`);
+    } else {
+        res.sendFile(`${__dirname}/project/view/index.html`);
+    }
+});
+
+app.post('/auth', function (req, res) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    if (username && password) {
+        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (error, results, fields) {
+            if (results.length > 0) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                res.redirect('/');
+            } else {
+                res.send('Incorrect Username and/or Password!');
+            }
+        });
+    } else {
+        res.send('Please enter Username and Password!');
+    }
 });
 
 // upload handler
@@ -96,6 +159,11 @@ app.put('/', function (req, res) {
 
 app.delete('/filedir/', function (req, res) {
     console.log(req.query);
+});
+
+app.get('*', function (req, res) {  // /*
+    if (!isLoggedIn(req))
+        res.redirect('/login');
 });
 
 // start server
