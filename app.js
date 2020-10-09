@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 
@@ -37,28 +36,23 @@ const connection = mysql.createConnection({
     password: '',
     database: 'ShareCenterAuth'
 });
-
 function isLoggedIn(req) {
     return req.session.loggedin ? true : false;
 }
 
-// home page
-app.get('/', function (req, res) {
-    console.log({loggedIn: isLoggedIn(req)});
-
-    if (isLoggedIn(req)) {
-        res.sendFile(`${__dirname}/project/view/index.html`);
-    } else {
-        res.redirect('/login');
-    }
-});
-
-app.get('/login', function (req, res) {
+function auth(req, res, next) {
+    console.log({ loggedIn: isLoggedIn(req), path: req.path });
     if (!isLoggedIn(req)) {
+
         res.sendFile(`${__dirname}/project/view/login.html`);
-    } else {
-        res.sendFile(`${__dirname}/project/view/index.html`);
-    }
+        res.status(401);
+    } else
+        next();
+}
+
+// home page
+app.get('/', auth, function (req, res) {
+    res.sendFile(`${__dirname}/project/view/index.html`);
 });
 
 app.post('/auth', function (req, res) {
@@ -73,6 +67,7 @@ app.post('/auth', function (req, res) {
                 res.redirect('/');
             } else {
                 res.send('Incorrect Username and/or Password!');
+                res.status(401);
             }
         });
     } else {
@@ -96,7 +91,7 @@ app.post('/', upload.any(), function (req, res) {
 });
 
 // all type of files except images will explored here
-app.get('/files-list', function (req, res) {
+app.get('/files-list', auth, function (req, res) {
     let rootFolder;
     let response = [];
 
@@ -161,9 +156,8 @@ app.delete('/filedir/', function (req, res) {
     console.log(req.query);
 });
 
-app.get('*', function (req, res) {  // /*
-    if (!isLoggedIn(req))
-        res.redirect('/login');
+app.get('*', auth, function (req, res) {
+    res.send(`${req.path} is not a valid route!`);
 });
 
 // start server

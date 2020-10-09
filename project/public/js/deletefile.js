@@ -16,6 +16,8 @@ function deletefile(directory, filename, blockpanelID) {
 
         if (this.readyState == 4 && this.status == 200) {
             bpanel.style = "zindex = -100;"
+        } else if (this.readyState == 4 && this.status != 200) {
+            window.location.reload();
         }
     };
 
