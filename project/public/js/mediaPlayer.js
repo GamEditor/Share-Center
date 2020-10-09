@@ -75,7 +75,7 @@ function openMovie(path) {
     let moviePlayer = $("#moviePlayer");
     moviePlayer.html("<video id='videoPlayer' controls controlsList='nodownload'></video>");
 
-    $("#movieTitle").html(fileName[fileName.length - 1]);
+    $("#movieTitle").html(decodeURI(fileName[fileName.length - 1]));
 
     moviePlayerContainer.show();
 

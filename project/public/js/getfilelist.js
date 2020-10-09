@@ -10,16 +10,41 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
     const filesholder = document.getElementById(filesContainerId);
     const loadinggif = document.getElementById(loadingGifId);
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState < 4) {
-            filesholder.innerHTML = '';
-            emptyFolderBackground.style.display = 'none';
-            loadinggif.style.display = 'block';
-        }
+    filesholder.innerHTML = '';
+    emptyFolderBackground.style.display = 'none';
+    loadinggif.style.display = 'block';
 
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(this.responseText); // convert server response to object
+    $.ajax({
+        url: `/files-list?path=${path}`,
+        method: "GET",
+        success: function (data) {
+            let response = JSON.parse(data);
+            let rFolders = [];
+            let rFiles = [];
+
+            console.log(response);
+
+            for (let i = 0; i < response.length; i++) {
+                if (response[i].filetype == "folder")
+                    rFolders.push(response[i]);
+                else
+                    rFiles.push(response[i]);
+            }
+
+            // Comparing based on the property item
+            let compare_name = function (a, b) {
+                if (a.name.toLowerCase() < b.name.toLowerCase()) { return -1; }
+                if (a.name.toLowerCase() > b.name.toLowerCase()) { return 1; }
+                return 0;
+            }
+
+            rFolders = rFolders.sort(compare_name);
+            rFiles = rFiles.sort(compare_name);
+
+            response = [];
+            response = response.concat(rFolders);
+            response = response.concat(rFiles);
+
             let files = '';
 
             // checking empty response
@@ -32,28 +57,26 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
                 // creating files elements on an string
                 for (let i = 0; i < response.length; i++) {
                     files +=
-                        '<div class="file" id="file-' + i + '" title="Size: ' + response[i].size + '\nUpload Date: ' + new Date(response[i].uploadDate) + '">\
-                    <div class="' + response[i].extension + ' unknownExtension"></div><div>' + response[i].name + '</div></div>';
+                        `<div class="file" id="file-${i}" title="Size: ${response[i].size}\nUpload Date: ${new Date(response[i].uploadDate)}">
+                    <div class="${response[i].extension} unknownExtension"></div><div>${response[i].name}</div></div>`;
                 }
 
                 filesholder.innerHTML = files;      // attaching created elements to dom
-
                 loadinggif.style.display = "none";  // hiding loading gif
 
                 // adding custom attributes to elements
                 for (let i = 0; i < response.length; i++) {
-                    let file = $("#file-" + i);
+                    let file = $(`#file-${i}`);
 
                     file.attr("data-type", response[i].filetype);
                     file.attr("data-extension", response[i].extension);
-                    file.attr("data-path", encodeURI(response[i].path + '/' + response[i].name));
+                    file.attr("data-path", encodeURI(`${response[i].path}/${response[i].name}`));
 
                     if (file.attr("data-type") == "file") {
                         file.on("dblclick", function (ev) {
                             openFile(file.attr("data-extension"), file.attr("data-path"));
                         });
-                    }
-                    else {
+                    } else {
                         file.on("click", function (ev) {
                             openFolder(file.attr("data-path"), refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
                         });
@@ -65,15 +88,11 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
 
             // showing directory on ui
             makeDirectoryElements(response[0].path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId);
-        } else if (this.readyState == 4 && this.status != 200) {
+        },
+        error: function (error) {
             window.location.reload();
         }
-    };
-
-    // sending get files request to server
-    xhr.open("GET", "files-list?path=" + path, true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send();
+    });
 }
 
 function makeDirectoryElements(path, refreshButtonId, filesContainerId, loadingGifId, directoryDisplayerId, emptyFolderBackgroundId) {

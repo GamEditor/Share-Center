@@ -1,4 +1,11 @@
+@font-face {
+    font-family: vazir;
+    src: url(/public/fonts/Vazir.ttf);
+}
+
 * {
+    font-family: vazir;
+
     user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
@@ -7,7 +14,6 @@
 
 body {
     background-color: rgb(42, 52, 61);
-    font-family: Arial;
 }
 
 [data-type="folder"] {
@@ -135,6 +141,7 @@ div.file * {
 
 #fileholder {
     overflow: auto;
+    min-height: 74vh;
 }
 
 #emptyFolderBackground {
