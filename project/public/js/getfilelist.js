@@ -22,8 +22,6 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
             let rFolders = [];
             let rFiles = [];
 
-            console.log(response);
-
             for (let i = 0; i < response.length; i++) {
                 if (response[i].filetype == "folder")
                     rFolders.push(response[i]);
@@ -56,9 +54,8 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
 
                 // creating files elements on an string
                 for (let i = 0; i < response.length; i++) {
-                    files +=
-                        `<div class="file" id="file-${i}" title="Size: ${response[i].size}\nUpload Date: ${new Date(response[i].uploadDate)}">
-                    <div class="${response[i].extension} unknownExtension"></div><div>${response[i].name}</div></div>`;
+                    files += `<tr class="file" id="file-${i}" data-type="${response[i].filetype}" data-path="${encodeURI(`${response[i].path}/${response[i].name}`)}" data-extension="${response[i].extension}" title="Size: ${response[i].size}\nUpload Date: ${new Date(response[i].uploadDate)}">
+                        <td class="${response[i].extension.toLowerCase()} unknownExtension"></td><td>${response[i].name}</td></tr>`;
                 }
 
                 filesholder.innerHTML = files;      // attaching created elements to dom
@@ -67,10 +64,6 @@ function openFolder(path, refreshButtonId, filesContainerId, loadingGifId, direc
                 // adding custom attributes to elements
                 for (let i = 0; i < response.length; i++) {
                     let file = $(`#file-${i}`);
-
-                    file.attr("data-type", response[i].filetype);
-                    file.attr("data-extension", response[i].extension);
-                    file.attr("data-path", encodeURI(`${response[i].path}/${response[i].name}`));
 
                     if (file.attr("data-type") == "file") {
                         file.on("dblclick", function (ev) {

@@ -5,7 +5,6 @@
 
 * {
     font-family: vazir;
-
     user-select: none;
     -ms-user-select: none;
     -moz-user-select: none;
@@ -42,13 +41,13 @@ body {
     transform: translate(-50%, -50%);
 }
 
-span.directory:hover {
+.directory:hover {
     cursor: pointer;
     text-decoration: none;
     color: rgb(255, 195, 48);
 }
 
-div.progressBar-container {
+.progressBar-container {
     position: relative;
     height: 20px;
     margin-top: 1%;
@@ -67,7 +66,7 @@ div.progressBar-container {
     text-shadow: 1px 1px rgb(42, 52, 61);
 }
 
-div#progressBar {
+#progressBar {
     position: absolute;
     margin: 0;
     background-color: rgb(255, 195, 48);
@@ -75,58 +74,47 @@ div#progressBar {
     width: 0%;
 }
 
-div#fileuploader {
+#fileuploader {
     padding: 1%;
     border: 2px dashed rgb(255, 195, 48);
     color: white;
     background-color: rgb(69, 78, 87);
 }
 
-div.directoryDisplayer {
+.directoryDisplayer {
     color: white;
     border-bottom: 1px solid rgb(255, 195, 48);
 }
 
-div.header-buttons {
+.header-buttons {
     margin-top: 10px;
     width: 100%;
     height: 32px;
 }
 
-div.header-buttons * {
+.header-buttons * {
     float: right;
     cursor: pointer;
 }
 
-div.file {
-    position: relative;
-    margin: 0;
+.file {
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 50px;
     color: white;
     text-align: justify;
-    vertical-align: middle;
 }
 
-div.file span.helper {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
+.file td:nth-child(2) {
+    width: calc(100% - 32px);
 }
 
-div.file img {
-    vertical-align: middle;
-}
-
-div.file:hover {
+.file:hover {
     background-color: rgba(173, 216, 230, 0.300);
 }
 
-div.file * {
-    position: relative;
-    float: left;
-    top: 50%;
-    transform: translate(0, -50%);
+.file * {
+    vertical-align: middle;
 }
 
 #loadinggif {
@@ -140,8 +128,8 @@ div.file * {
 }
 
 #fileholder {
-    overflow: auto;
-    min-height: 74vh;
+    /* overflow: auto; */
+    width: 100%;
 }
 
 #emptyFolderBackground {
