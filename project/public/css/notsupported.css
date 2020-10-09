@@ -1,0 +1,24 @@
+@font-face {
+    font-family: vazir;
+    src: url(/public/fonts/Vazir.ttf);
+}
+
+* {
+    font-family: vazir;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    color: rgb(255, 195, 48);
+    background-color: rgb(42, 52, 61);
+}

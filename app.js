@@ -1,4 +1,5 @@
 const fileUtility = require('./modules/FileUtility');
+const browserCheck = require('./modules/browserCheck');
 
 const express = require('express');
 const app = express();
@@ -41,9 +42,11 @@ function isLoggedIn(req) {
 }
 
 function auth(req, res, next) {
-    console.log({ loggedIn: isLoggedIn(req), path: req.path });
-    if (!isLoggedIn(req)) {
+    console.log({ loggedIn: isLoggedIn(req), path: req.path, useragent: req.headers['user-agent'] });
 
+    if (browserCheck.isSupportedBrowser(req.headers['user-agent'])) {
+        res.sendFile(`${__dirname}/project/view/notsupported.html`);
+    } else if (!isLoggedIn(req)) {
         res.sendFile(`${__dirname}/project/view/login.html`);
         res.status(401);
     } else
