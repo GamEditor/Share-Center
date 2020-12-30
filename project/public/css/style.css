@@ -13,6 +13,7 @@
 
 body {
     background-color: rgb(42, 52, 61);
+    min-height: calc(100vh - 16px);
 }
 
 [data-type="folder"] {
@@ -72,6 +73,7 @@ body {
     background-color: rgb(255, 195, 48);
     height: 100%;
     width: 0%;
+    transition: all 0.25s;
 }
 
 #fileuploader {
