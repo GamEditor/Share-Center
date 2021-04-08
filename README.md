@@ -5,6 +5,7 @@ Share all your files on internet or local networks easily!
 - Sharing across all devices
 - Supporting folders
 - Creating new folders with desired names in any path you want
+- Built-in audio and video player (only for mp3 and mp4)
 - Unlimited upload size!
 - Working independent or under a web server
 - Working with every supported web server without any problems (microsoft iis is full tested)
