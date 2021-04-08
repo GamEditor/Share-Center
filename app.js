@@ -31,19 +31,22 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'ShareCenterAuth'
-});
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'ShareCenterAuth'
+// });
+
 function isLoggedIn(req) {
-    return req.session.loggedin ? true : false;
+    // return req.session.loggedin ? true : false;  // handle your authentication yourself
+    return true;
 }
 
 function auth(req, res, next) {
-    console.log({ loggedIn: isLoggedIn(req), path: req.path, useragent: req.headers['user-agent'] });
+    // console.log({ loggedIn: isLoggedIn(req), path: req.path, useragent: req.headers['user-agent'] });
 
+    // some client side apis doesn't work on IE. so i decided to stop supporting this browser
     if (browserCheck.isSupportedBrowser(req.headers['user-agent'])) {
         res.sendFile(`${__dirname}/project/view/notsupported.html`);
     } else if (!isLoggedIn(req)) {
@@ -62,20 +65,20 @@ app.post('/auth', function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    if (username && password) {
-        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (error, results, fields) {
-            if (results.length > 0) {
-                req.session.loggedin = true;
-                req.session.username = username;
-                res.redirect('/');
-            } else {
-                res.send('Incorrect Username and/or Password!');
-                res.status(401);
-            }
-        });
-    } else {
-        res.send('Please enter Username and Password!');
-    }
+    // if (username && password) {
+    //     connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (error, results, fields) {
+    //         if (results.length > 0) {
+    //             req.session.loggedin = true;
+    //             req.session.username = username;
+    //             res.redirect('/');
+    //         } else {
+    //             res.send('Incorrect Username and/or Password!');
+    //             res.status(401);
+    //         }
+    //     });
+    // } else {
+    //     res.send('Please enter Username and Password!');
+    // }
 });
 
 // upload handler
