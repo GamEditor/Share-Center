@@ -13,7 +13,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const multer = require('multer');
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 const responsedelay = 50;   // miliseconds
 const rootPath = `userdata/files`;
 
